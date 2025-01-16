@@ -1,0 +1,29 @@
+meta {
+  name: Get all Assets
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortOrder": "DESC",
+    "sortField": "fieldName",
+    "filterExpression": []
+  }
+}

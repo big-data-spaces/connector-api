@@ -1,0 +1,25 @@
+meta {
+  name: Get Negotiation Status by ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+tests {
+  test("Body matches string", function () {
+      var jsonData = res.getBody();
+      bru.setVar("AGREEMENT_ID", jsonData["edc:contractAgreementId"]);
+  
+  });
+}

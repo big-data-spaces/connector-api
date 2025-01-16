@@ -1,0 +1,50 @@
+meta {
+  name: Create S3 Asset
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "edc": "https://w3id.org/edc/v0.0.1/ns/"
+      },
+      "@type": "Asset",
+      "@id": "{{ASSET_ID}}", 
+      "properties": {
+          "description": "Product EDC Demo Asset",
+          "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+          "metadata.volume": "1GB"
+      },
+      "privateProperties": {
+          "assetOwner": "ABC Group GmbH"
+      },
+      "dataAddress": {
+          "@type": "DataAddress",
+          "region": "{{AWS-SOURCE-REGION}}",
+          "keyName": "{{AWS-SOURCE-PATH}}",
+          "bucketName": "{{AWS-SOURCE-BUCKET-NAME}}",
+          "accessKeyId": "{{AWS-SOURCE-ACCESS-KEY}}",
+          "secretAccessKey": "{{AWS-SOURCE-SECRET-KEY}}",
+          "type": "AmazonS3"
+      }
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}

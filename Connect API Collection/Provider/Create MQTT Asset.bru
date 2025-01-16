@@ -1,0 +1,49 @@
+meta {
+  name: Create MQTT Asset
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "edc": "https://w3id.org/edc/v0.0.1/ns/"
+      },
+      "@type": "Asset",
+      "@id": "{{ASSET_ID}}", 
+      "properties": {
+          "description": "Product EDC Demo Asset",
+          "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+          "metadata.volume": "1GB"
+      },
+      "privateProperties": {
+          "assetOwner": "ABC Group GmbH"
+      },
+      "dataAddress": {
+          "@type": "DataAddress",
+          "topic": "Provider_Topic",
+          "id":"demo-asset-mqtt",
+          "mqtt.host.servers": "tcp://localhost:1883",
+          "mqtt.keepAliveDuration": "9999",
+          "type": "Mqtt"
+      }
+  }
+}
+
+tests {
+  test("Status code is 201", function () {
+      expect(res.getStatus()).to.equal(201);
+  });
+}

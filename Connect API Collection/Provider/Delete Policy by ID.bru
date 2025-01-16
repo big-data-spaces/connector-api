@@ -1,0 +1,36 @@
+meta {
+  name: Delete Policy by ID
+  type: http
+  seq: 19
+}
+
+delete {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "id": "{{POLICY_ID}}",
+      "policy": {
+          "prohibitions": [],
+          "obligations": [],
+          "permissions": [
+              {
+                  "edctype": "dataspaceconnector:permission",
+                  "action": {
+                      "type": "USE"
+                  },
+                  "constraints": []
+              }
+          ]
+      }
+  }
+}

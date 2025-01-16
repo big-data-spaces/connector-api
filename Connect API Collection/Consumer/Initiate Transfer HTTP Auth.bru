@@ -1,0 +1,54 @@
+meta {
+  name: Initiate Transfer HTTP Auth
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "odrl": "http://www.w3.org/ns/odrl/2/"
+      },
+      "assetId": "{{ASSET_ID}}",
+      "connectorAddress": "{{PROVIDER_PROTOCOL_URL}}",
+      "contractId": "{{AGREEMENT_ID}}",
+      "connectorId": "{{PROVIDER_ID}}",
+      "providerId": "{{PROVIDER_ID}}",
+      "dataDestination": {
+          "type": "HttpData",
+          "baseUrl": "{{TARGET_PATH}}",
+          "authKey": "Authorization",
+          "authCode": "Basic {{TARGET_AUTHKEY}}",
+          "method": "PUT"
+      },
+      "managedResources": false,
+      "protocol": "dataspace-protocol-http",
+      "transferType": {
+          "contentType": "application/octet-stream",
+          "isFinite": false
+      }
+  }
+}
+
+script:pre-request {
+  bru.setVar("TRANSFER_ID", Math.random());
+}
+
+tests {
+  test("Body matches string", function () {
+      var jsonData = res.getBody();
+      bru.setVar("TRANSFER_PROCESS_ID", jsonData["@id"]);
+  });
+}

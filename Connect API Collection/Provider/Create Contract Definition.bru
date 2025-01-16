@@ -1,0 +1,33 @@
+meta {
+  name: Create Contract Definition
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {},
+      "@id": "{{CONTRACT_DEFINITION_ID}}",
+      "@type": "ContractDefinition",
+      "accessPolicyId": "{{POLICY_ID}}",
+      "contractPolicyId": "{{POLICY_ID}}",
+      "assetsSelector" : {
+          "@type" : "CriterionDto",
+          "operandLeft": "{{EDC_NAMESPACE}}",
+          "operator": "=",
+          "operandRight": "{{ASSET_ID}}"
+      }
+  }
+}

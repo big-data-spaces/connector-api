@@ -1,0 +1,42 @@
+meta {
+  name: Initiate Negotation
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "odrl": "http://www.w3.org/ns/odrl/2/"
+    },
+    "@type": "NegotiationInitiateRequestDto",
+    "connectorAddress": "{{PROVIDER_PROTOCOL_URL}}",
+    "protocol": "dataspace-protocol-http",
+      "providerId": "{{PROVIDER_ID}}",
+    "offer": {
+      "offerId": "{{OFFER_ID}}",
+      "assetId": "{{TARGET_ID}}",
+      "policy": {{PERMISSION}}
+    }
+  }
+}
+
+tests {
+  test("Body matches string", function () {
+      var jsonData = res.getBody();
+      bru.setVar("NEGOTIATION_ID", jsonData["@id"]);
+  
+  });
+}

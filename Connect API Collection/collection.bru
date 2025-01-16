@@ -1,0 +1,72 @@
+meta {
+  name: Connect API Collection
+}
+
+auth {
+  mode: none
+}
+
+vars:pre-request {
+  CONSUMER_URL: https://connect-test-3.erjufp1-wp31-sandbox.lila.dih.telekom.com
+  CONSUMER_MANAGEMENT_URL: {{CONSUMER_URL}}/api/management
+  CONSUMER_PROTOCOL_URL: {{CONSUMER_URL}}/api/dsp
+  PROVIDER_URL: https://connect-test.erjufp1-wp31-sandbox.lila.dih.telekom.com
+  PROVIDER_PROTOCOL_URL: {{PROVIDER_URL}}/api/dsp
+  PROVIDER_MANAGEMENT_URL: {{PROVIDER_URL}}/api/management
+  ASSET_ID: demo-asset-mqtt
+  POLICY_ID: demo-policy
+  CONTRACT_DEFINITION_ID: demo-contract-def
+  EDC_NAMESPACE: https://w3id.org/edc/v0.0.1/ns/id
+  NEGOTIATION_ID: 
+  AGREEMENT_ID: 
+  TRANSFER_PROCESS_ID: 
+  OFFER_ID: 
+  TARGET_ID: 
+  PROVIDER_ID: 
+  PERMISSION: 
+  AWS-SOURCE-REGION: 
+  AWS-SOURCE-PATH: 
+  AWS-SOURCE-BUCKET-NAME: 
+  AWS-SOURCE-ACCESS-KEY: 
+  AWS-SOURCE-SECRET-KEY: 
+  AWS-TARGET-REGION: 
+  AWS-TARGET-PATH: 
+  AWS-TARGET-BUCKET-NAME: 
+  AWS-TARGET-ACCESS-KEY: 
+  AWS-TARGET-SECRET-KEY: 
+  MQTT_AUTH_USER: 
+  MQTT_AUTH_PASSWORD: 
+  SOURCE_PATH: 
+  SOURCE_AUTHKEY: 
+  AZURE-SOURCE-ACCOUNT: 
+  AZURE-SOURCE-KEY: 
+  AZURE-SOURCE-CONTAINER: 
+  AZURE-BLOB-NAME: 
+  DID_URL: 
+  AZURE-TARGET-ACCOUNT: 
+  AZURE-TARGET-KEY: 
+  AZURE-TARGET-CONTAINER: 
+  TARGET_PATH: 
+  TARGET_AUTHKEY: 
+  CONSUMER_API_KEY: 
+  PROVIDER_API_KEY: 
+}
+
+docs {
+  ![Data Intelligence Hub](https://avatars.githubusercontent.com/u/64842890?s=200&v=4) 
+  
+  # An End-To-End Example for Exchanging Data over the T-Systems Dataspace Connector
+  
+  We interact with the so-called tenant-facing *Management API* of two different connector instances in order to publish and access data offers. The connectors will use dataspace-facing *Dataspace Protocol API* (DSP) in order to negotiate (and open up) data transfer contracts and processes. They will finally use internet-facing *Data Transfer Protocols*, such as _S3_ or _HTTP_ in order to finally perform the data transfer.
+  
+  First, we need to prepare a data offer:
+  - [Provider](Provider) lists/exemplifies the calls to the data providing tenant and its connector.
+  
+  Then, we can request and negotiate the prepared data offers:
+  - [Consumer](Consumer) lists/exemplifies the calls to the data consuming tenant and its connector.
+  
+  Please adapt the variables in the `Vars` tab:
+  - CONSUMER_URL and PROVIDER_URL: The URL prefixes of the T-Systems connectors that you have been served.
+  - CONSUMER_API_KEY and PROVIDER_API_KEY: The secret API keys for the Management APIs that you have been handed out by T-Systems support.
+  
+}
