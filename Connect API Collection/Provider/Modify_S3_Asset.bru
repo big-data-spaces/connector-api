@@ -1,0 +1,63 @@
+meta {
+  name: Modify_S3_Asset
+  type: http
+  seq: 16
+}
+
+put {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "edc": "https://w3id.org/edc/v0.0.1/ns/",
+          "custom": "urn:dih-cloud:com:"
+      },
+      "@type": "Asset",
+      "@id": "{{ASSET_ID}}", 
+      "properties": {
+          "description": "Modified Product EDC Demo Asset",
+          "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+          "metadata.volume": "100MB"
+      },
+      "privateProperties": {
+          "assetOwner": "ABC Group GmbH",
+          "custom:state": "inactive"
+      },
+      "dataAddress": {
+          "@type": "DataAddress",
+          "region": "{{AWS-SOURCE-REGION}}",
+          "keyName": "{{AWS-SOURCE-PATH}}",
+          "bucketName": "{{AWS-SOURCE-BUCKET-NAME}}",
+          "accessKeyId": "{{AWS-SOURCE-ACCESS-KEY}}",
+          "secretAccessKey": "{{AWS-SOURCE-SECRET-KEY}}",
+          "type": "AmazonS3"
+      }
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+docs {
+  # Modifying a Data Asset
+  
+  Instead of deleting an asset, we can modify its properties such that it would disappear from the contract definitions selector. In our example, we change the value of the "custom:state" property to reach that.
+  
+  > Note that "custom:state" is a private property which is not visible to the business partner. You can use any public or private properties in the contract definition, but we recommend to hide these status fields which you use to steer the visibility and to manage your assets from the official catalog.
+  
+  We will be presented with a `204 No Content` status upon success. Go ahead and see what this means for the resulting catalog offered to the business partner. Afterwards, you should return and reactivate the asset.
+  
+}

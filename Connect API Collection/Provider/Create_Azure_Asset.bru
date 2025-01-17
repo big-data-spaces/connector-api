@@ -1,0 +1,49 @@
+meta {
+  name: Create_Azure_Asset
+  type: http
+  seq: 24
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+headers {
+  x-api-key: {{API-KEY}}
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "custom": "urn:dih-cloud:com:"
+    },
+    "@type": "Asset",
+    "@id": "{{ASSET_ID}}_azure",
+    "properties": {
+      "description": "Azure Demo Asset",
+      "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+      "metadata.volume": "100Mb"
+    },
+    "privateProperties": {
+      "assetOwner": "Microsoft GmbH",
+      "custom:state": "active"
+    },
+    "dataAddress": {
+      "@type": "DataAddress",
+      "account": "{{AZURE-SOURCE-ACCOUNT}}",
+      "container": "{{AZURE-SOURCE-CONTAINER}}",
+      "keyName": "{{AZURE-SOURCE-KEY}}",
+      "blobname": "{{AZURE-BLOB-NAME}}",
+      "type": "AzureStorage"
+    }
+  }
+}

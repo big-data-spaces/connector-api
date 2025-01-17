@@ -1,0 +1,47 @@
+meta {
+  name: Monitor_Contract_Negotiation_Status
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) {
+      var jsonData = res.getBody();
+      if(jsonData["edc:state"] == "FINALIZED") {
+        bru.setEnvVar("AGREEMENT_ID", jsonData["edc:contractAgreementId"]);
+      }
+  }
+}
+
+tests {
+  test("Body matches string", function () {
+      var jsonData = res.getBody();
+      bru.setVar("AGREEMENT_ID", jsonData["edc:contractAgreementId"]);
+  
+  });
+}
+
+docs {
+  # Inspect Negotiation Status
+  
+  We need to regularly poll the status of the ongoing negotation until we find out about its success.
+  
+  If the `edc:state` in the response object is `FINALIZED` then we can obtain the actual id of the agreement object (`edc:contractAgreementId`). This id is shared knowledge between the connectors/business partners and the DSP protocol ensuress that both connectors have a common understanding about the asset and the conditions under which it is to be transferred.
+  
+  Note that at this time, we have not yet decided about the way that the asset will be transferred. From the consumer perspective, this is totally fine since the data source itself should be completely transparent.
+  
+  If you want to see the result of this negotiation at the provider side, yiou may now switch back to [Provider](Provider).
+  
+}

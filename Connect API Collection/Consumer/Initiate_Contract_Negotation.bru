@@ -1,0 +1,54 @@
+meta {
+  name: Initiate_Contract_Negotation
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "odrl": "http://www.w3.org/ns/odrl/2/"
+    },
+    "@type": "NegotiationInitiateRequestDto",
+    "connectorAddress": "{{PROVIDER_PROTOCOL_URL}}",
+    "protocol": "dataspace-protocol-http",
+      "providerId": "{{PROVIDER_ID}}",
+    "offer": {
+      "offerId": "{{OFFER_ID}}",
+      "assetId": "{{TARGET_ID}}",
+      "policy": {{PERMISSION}}
+    }
+  }
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) {
+      var jsonData = res.getBody();
+      bru.setEnvVar("NEGOTIATION_ID", jsonData["@id"]);
+  }
+}
+
+docs {
+  # Starting a Contract Negotation
+  
+  The contract negotation between two business partners is a more complicated, multi-step and asynchronous process in the **Dataspace Protocol** than a pure catalogue request (which is a synchronous one-step action).
+  
+  The consumer initiates this process by calling the Contract Negotiations endpoint with a `POST` call. In the JSON-LD body of the request, we have to put the complete offering information that we have chosen from the previous catalogue including the `connectorAddress` and the partners dataspace `providerId`.
+  
+  We will not be immediately returned with a result response. But instead we will be given a reference to the negotiation process itself. We have to remember its id in order for being able to actively trace its progress (see the script tab).
+  
+  
+  
+}

@@ -1,0 +1,73 @@
+meta {
+  name: Create_Policy_Definition
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "dct": "https://purl.org/dc/terms/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "dcat": "https://www.w3.org/ns/dcat/",
+      "odrl": "http://www.w3.org/ns/odrl/2/",
+      "dspace": "https://w3id.org/dspace/v0.8/"
+    },
+    "@type": "edc:PolicyDefinition",
+    "@id": "{{POLICY_ID}}",
+    "edc:policy": {
+      "@id": "{{POLICY_ID}}_policy",
+      "@type": "odrl:Set",
+      "odrl:permission": [
+        {
+          "odrl:action": {
+            "odrl:type": "USE"
+          }
+        }
+      ],
+      "odrl:prohibition": [],
+      "odrl:obligation": []
+    }
+  }
+}
+
+docs {
+  # Create a Policy Definition
+  
+  Policies encode conditions under which data is shared in the dataspace (via JSONLD). At this time, this is fully independent of the actual data (assets).
+  
+  Policies follow the ODRL approach of separating `odrl:permission` from `odrl:obgligation` and `odrl:duty`. Each of those refers to a so-called action where we currently only those of type `USE`.
+  
+  > A Permission allows an action, with all refinements satisfied, to be exercised on an Asset if all constraints are satisfied and if all duties are fulfilled.
+  
+  > A Prohibition disallows an action, with all refinements satisfied, to be exercised on an Asset if all constraints are satisfied. If the Prohibition has been infringed by the action being exercised, then all of the remedies MUST be fulfilled to set the state of the Prohibition to not infringed.
+  
+  > A Duty is the obligation to exercise an action, with all refinements satisfied. A Duty is fulfilled if all constraints are satisfied and if its action, with all refinements satisfied, has been exercised. If its action has not been exercised, then all consequences must also be fulfilled to fulfil the Duty. That is, consequences are additional Duties that must also be fulfilled. (Note: only Duties referenced by duty or obligation properties may use consequence properties.)
+  
+  Following these definitions, this `POST` request to the **Policy Management Endpoint** would introduce a policy which allows all usages of the associated data with no restriction. 
+  
+  > Note that a policy alone has yet no effect at all! It needs to be activated by a *Contract Definition* in order to become effective.
+  
+  In contrast to Data Assets it is also important to note that
+  
+  > Policies may be changed (see below) and deleted at any time (see also below).
+  
+  > One a contract agreement has been made, the policy which was offered/activate at that time will be *frozen*. Any change to the policy afterwards has no effect on the existing agreement.
+  
+  As with Data Assets, we recommend to manage policies and their ids in an dataspace/connector-encompassing fashion, e.g. using T-Systems **Data Governance Kit**
+  
+  
+  
+}

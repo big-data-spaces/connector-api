@@ -1,0 +1,27 @@
+meta {
+  name: Monitor_Transfer_Process
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses/{{TRANSFER_PROCESS_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Monitor the Transfer Process
+  
+  You can monitor the distributed transfer process using this `GET` call. 
+  
+  > The Provider will have a similar transfer process with a different id, but sharing the same `edc:correlationId`.
+  
+  In this version of EDC, the state progression however was done by so-called status checkers which were not implemented for all protocols, such as S3. This could mean that the transfer processes will stay in state `STARTED` forever, although the actual transfer was already done. We can verify this by looking at the [actual target sink](Access_Target). 
+}

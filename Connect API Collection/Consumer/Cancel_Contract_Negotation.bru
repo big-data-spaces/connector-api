@@ -1,0 +1,24 @@
+meta {
+  name: Cancel_Contract_Negotation
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractnegotiations/{{NEGOTIATION_ID}}/cancel
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Cancel a Contract Negotiation = Terminate Agreement
+  
+  By performing this "empty" `POST` call, we tell our connector (and our business partners connector in consequence) that we do want to cancel a given negotiation process.
+  
+}

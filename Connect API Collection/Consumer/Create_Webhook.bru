@@ -1,0 +1,25 @@
+meta {
+  name: Create_Webhook
+  type: http
+  seq: 9
+}
+
+post {
+  url: https://webhook.site/token
+  body: none
+  auth: none
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) {
+    bru.setEnvVar("WEBHOOK_ID",res.getBody().uuid);  
+  }
+  
+}
+
+docs {
+  # Create a Temporary Webhook
+  
+  When demonstrating http capabilities, it is nice to make use of a *Webhook* service which can temporarily serve as an http-based data source and sink for development purposes.
+  
+}

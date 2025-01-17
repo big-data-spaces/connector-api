@@ -1,0 +1,70 @@
+meta {
+  name: Initiate_Transfer_Process_S3
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "odrl": "http://www.w3.org/ns/odrl/2/"
+      },
+      "connectorId":"{{PROVIDER_ID}}",
+      "providerId": "{{PROVIDER_ID}}",
+      "assetId": "{{ASSET_ID}}",
+      "connectorAddress": "{{PROVIDER_PROTOCOL_URL}}",
+      "contractId": "{{AGREEMENT_ID}}",
+      "dataDestination": {
+        "region": "{{AWS-TARGET-REGION}}",
+        "bucketName": "{{AWS-TARGET-BUCKET-NAME}}",
+        "keyName": "{{AWS-TARGET-PATH}}",
+        "accessKeyId": "{{AWS-TARGET-ACCESS-KEY}}",
+        "secretAccessKey": "{{AWS-TARGET-SECRET-KEY}}",
+        "type": "AmazonS3"
+          
+      },
+      "managedResources": false,
+      "protocol": "dataspace-protocol-http",
+      "transferType": {
+          "contentType": "application/octet-stream",
+          "isFinite": true
+      }
+  }
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) 
+  {
+      var jsonData = res.getBody();
+      bru.setEnvVar("TRANSFER_PROCESS_ID", jsonData["@id"]);
+  }
+}
+
+docs {
+  # Initiate a Transfer Process to S3
+  
+  Now that we have an existing contract agreement that is shared between consumer and provider, we are able to initiate a transfer process to a data offer/asset purely using the `@id` of that agreement as a reference.
+  
+  The consumer has no idea of the data source hidden behind the asset - execept of the meta-data description of its content. So does its connector. The actual transfer process (again, this is an asynchronous and possibly time-consuming task which will happen in the background) will be initiated and monitored using the DSP protocol. 
+  
+  > The actual execution of the transfer happens in the Provider connector, because only there lies the total information and sovereign access to the data source.
+  
+  But of couse, the provider connector needs to now where it should transfer the data to, the so-called *Data Sink*. This description is the task of the `dataDestination` which closely resembles the definition of `dataAddress` in data assets themselves.
+  
+  > Any credentials handed out in the `dataDestination` to the provider connector will be stored in a temporary section of the provider's vault and deleted after the transfer. But you should be aware that nevertheless these credentials will go over the wire of the DSP protocol. It maybe wise to use write-only temporary access tokens for that purpose.
+  
+  In order to monitor the progress of the transfer process, we keep a reference to it's id from the response.
+  
+}

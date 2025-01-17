@@ -1,0 +1,47 @@
+vars {
+  CONSUMER_URL: http://localhost:9192
+  CONSUMER_MANAGEMENT_URL: {{CONSUMER_URL}}/api/management
+  CONSUMER_PROTOCOL_URL: http://company2:8282/api/dsp
+  PROVIDER_URL: http://localhost:9191
+  PROVIDER_PROTOCOL_URL: http://company1:8282/api/dsp
+  PROVIDER_MANAGEMENT_URL: {{PROVIDER_URL}}/api/management
+  ASSET_ID: demo-asset
+  POLICY_ID: demo-policy
+  CONTRACT_DEFINITION_ID: demo-contract-def
+  EDC_NAMESPACE: https://w3id.org/edc/v0.0.1/ns/
+  NEGOTIATION_ID: eaeca119-db67-477d-8377-c62e8c49540c
+  AGREEMENT_ID: ZGVtby1jb250cmFjdC1kZWY=:ZGVtby1hc3NldF9henVyZQ==:OGY2ZGM4ZGItZWQ2Mi00ZmM4LTk5Y2MtNTliN2EyY2ExZjVl
+  TRANSFER_PROCESS_ID: 60fc25fe-58f5-48d9-bedf-0ea070eca8f5
+  OFFER_ID: ZGVtby1jb250cmFjdC1kZWY=:ZGVtby1hc3NldF9henVyZQ==:NWE3ODY0ZjMtZDI2MS00ZjIzLWFkZTUtM2U1NTlhMGRiOGRh
+  TARGET_ID: demo-asset_azure
+  PROVIDER_ID: did:web:did-server:company1
+  PERMISSION: {"@id":"ZGVtby1jb250cmFjdC1kZWY=:ZGVtby1hc3NldF9henVyZQ==:NWE3ODY0ZjMtZDI2MS00ZjIzLWFkZTUtM2U1NTlhMGRiOGRh","@type":"odrl:Set","odrl:permission":{"odrl:target":"demo-asset_azure","odrl:action":{"odrl:type":"USE"}},"odrl:prohibition":[],"odrl:obligation":[],"odrl:target":"demo-asset_azure"}
+  AWS-SOURCE-REGION: eu-central-1
+  AWS-SOURCE-PATH: lorem-ipsum.pdf
+  AWS-SOURCE-BUCKET-NAME: tsy-edc-tests
+  AWS-TARGET-REGION: eu-central-1
+  AWS-TARGET-PATH: lorem-ipsum2.pdf
+  AWS-TARGET-BUCKET-NAME: tsy-edc-tests
+  SOURCE_PATH: http://loripsum.net/api
+  AZURE-SOURCE-ACCOUNT: catenaxtsidevstorage
+  AZURE-SOURCE-KEY: azure-tsy-shared
+  AZURE-SOURCE-CONTAINER: connectortests
+  AZURE-BLOB-NAME: ecopass.svg
+  DID_URL: did-server
+  AZURE-TARGET-ACCOUNT: catenaxtsidevstorage
+  AZURE-TARGET-CONTAINER: connectortests
+  WEBHOOK_ID: 805c7627-7b58-4d63-90e1-27ab7bf6aab1
+  TODAY: Fr 17 Jan 2025 12:30:06 UTC
+  AZURE-TARGET-KEY: azure-tsy-dev
+}
+vars:secret [
+  AWS-SOURCE-ACCESS-KEY,
+  AWS-SOURCE-SECRET-KEY,
+  AWS-TARGET-ACCESS-KEY,
+  AWS-TARGET-SECRET-KEY,
+  SOURCE_AUTHKEY,
+  TARGET_AUTHKEY,
+  CONSUMER_API_KEY,
+  PROVIDER_API_KEY,
+  AZURE-TARGET-SAS
+]

@@ -1,0 +1,73 @@
+meta {
+  name: Create_Contract_Policy
+  type: http
+  seq: 18
+}
+
+put {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}_contract
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "dct": "https://purl.org/dc/terms/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "dcat": "https://www.w3.org/ns/dcat/",
+      "odrl": "http://www.w3.org/ns/odrl/2/",
+      "dspace": "https://w3id.org/dspace/v0.8/"
+    },
+    "@type": "edc:PolicyDefinition",
+    "@id": "{{POLICY_ID}}_contract",
+    "edc:policy": {
+      "@id": "{{POLICY_ID}}_contract_policy",
+      "@type": "odrl:Set",
+      "odrl:permission": [
+        {
+          "odrl:action": {
+            "odrl:type": "USE"
+          },
+          "odrl:constraint": [
+            {
+              "@type": "AtomicConstraint",
+              "odrl:leftOperand": "https://w3id.org/edc/v0.0.1/ns/inForceDate",
+              "odrl:operator": {
+                "@id": "odrl:gteq"
+              },
+              "odrl:rightOperand": "2025-01-17T13:37:40Z"
+            },
+            {
+              "@type": "AtomicConstraint",
+              "odrl:leftOperand": "https://w3id.org/edc/v0.0.1/ns/inForceDate",
+              "odrl:operator": {
+                "@id": "odrl:lteq"
+              },
+              "odrl:rightOperand": "contractAgreement+480s"
+            }
+          ]
+        }
+      ],
+      "odrl:prohibition": [],
+      "odrl:obligation": []
+    }
+  }
+}
+
+docs {
+  # Modifying a Policy Definition
+  
+  Another way of managing the visibility of your assets on a very fine grained level is by changing policies.
+  
+  Suppose we want to ensure that a group of assets should only be visible to particular business partners. And suppose that the assets should only be visible from a certain point in time on.
+  
+  This is where you can add additional constraints to the conditions and actions. Apply this call and see the result in the business partner's catalog.
+  
+}

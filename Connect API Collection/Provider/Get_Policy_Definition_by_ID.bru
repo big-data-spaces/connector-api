@@ -1,0 +1,24 @@
+meta {
+  name: Get_Policy_Definition_by_ID
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Get a Dedicated Policy Definition
+  
+  This `GET` call jumps to the policy definition with the given unique id.
+  
+}

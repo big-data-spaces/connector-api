@@ -1,0 +1,25 @@
+meta {
+  name: Access_Target_Azure
+  type: http
+  seq: 13
+}
+
+get {
+  url: https://{{AZURE-TARGET-ACCOUNT}}.blob.core.windows.net/{{AZURE-TARGET-CONTAINER}}/{{AWS-SOURCE-PATH}}?{{AZURE-TARGET-SAS}}
+  body: none
+  auth: none
+}
+
+params:query {
+  {{AZURE-TARGET-SAS}}: 
+}
+
+script:pre-request {
+  bru.setEnvVar("TODAY","Fr 17 Jan 2025 12:30:06 UTC")
+}
+
+docs {
+  # Access/Verify Target Sink
+  
+  In order to find out whether transfer was successful, we have to check the actual data sink directly.
+}

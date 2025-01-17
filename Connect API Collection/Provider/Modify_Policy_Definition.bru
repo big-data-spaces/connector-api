@@ -1,0 +1,73 @@
+meta {
+  name: Modify_Policy_Definition
+  type: http
+  seq: 17
+}
+
+put {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "dct": "https://purl.org/dc/terms/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "dcat": "https://www.w3.org/ns/dcat/",
+      "odrl": "http://www.w3.org/ns/odrl/2/",
+      "dspace": "https://w3id.org/dspace/v0.8/"
+    },
+    "@type": "edc:PolicyDefinition",
+    "@id": "{{POLICY_ID}}",
+    "edc:policy": {
+      "@id": "{{POLICY_ID}}_policy",
+      "@type": "odrl:Set",
+      "odrl:permission": [
+        {
+          "odrl:action": {
+            "odrl:type": "USE"
+          },
+          "odrl:constraint": [
+            {
+              "@type": "AtomicConstraint",
+              "odrl:leftOperand": "ids:absoluteSpatialPosition",
+              "odrl:operator": {
+                "@id": "odrl:eq"
+              },
+              "odrl:rightOperand": "eu"
+            },
+            {
+              "@type": "AtomicConstraint",
+              "odrl:leftOperand": "gax-trust-framework:dataAccountExport.gax-trust-framework:accessType",
+              "odrl:operator": {
+                "@id": "odrl:eq"
+              },
+              "odrl:rightOperand": "digital"
+            }
+          ]
+        }
+      ],
+      "odrl:prohibition": [],
+      "odrl:obligation": []
+    }
+  }
+}
+
+docs {
+  # Modifying a Policy Definition
+  
+  Another way of managing the visibility of your assets on a very fine grained level is by changing policies.
+  
+  Suppose we want to ensure that a group of assets should only be visible to particular business partners. 
+  
+  This is where you can add additional constraints to the conditions and actions. Apply this call and see the result in the business partner's catalog. Then loosen the constraint by adding the `eu` region again.
+  
+}

@@ -1,0 +1,79 @@
+meta {
+  name: Create_Modify_S3_Asset
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "edc": "https://w3id.org/edc/v0.0.1/ns/",
+          "custom": "urn:dih-cloud:com:"
+      },
+      "@type": "Asset",
+      "@id": "{{ASSET_ID}}", 
+      "properties": {
+          "description": "Product EDC Demo Asset",
+          "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+          "metadata.volume": "1GB"
+      },
+      "privateProperties": {
+          "assetOwner": "ABC Group GmbH",
+          "custom:state": "active"
+      },
+      "dataAddress": {
+          "@type": "DataAddress",
+          "region": "{{AWS-SOURCE-REGION}}",
+          "keyName": "{{AWS-SOURCE-PATH}}",
+          "bucketName": "{{AWS-SOURCE-BUCKET-NAME}}",
+          "accessKeyId": "{{AWS-SOURCE-ACCESS-KEY}}",
+          "secretAccessKey": "{{AWS-SOURCE-SECRET-KEY}}",
+          "type": "AmazonS3"
+      }
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+docs {
+  # Creating and Modifying a Data Asset
+  
+  A **Data Asset** is the most basic unit of offering in the data space. It can be created using a `POST` method on the **Asset Management Endpoint** which confirms the creation with a summary response (and a status code `200 OK`). It cannot be created twice (status code `409 Conflict`), instead it has to be updated by switching to the `PUT` method that is simply confirmed with status code `204 No Content`.
+  
+  Althout assets can also be deleted in principle (see the [Delete Asset](Delete_Asset) call below), this is only possible as long as the asset has not yet been contracted to another business partner. Once it has been negotiated, for legal and consistency reasons, the asset must exist in the connector forever. It can be unpublished, though. We will see that in the upcoming calls how to do that.
+  
+  Actually, the asset itself does not contain any real data. It is an annotated "reference" to a data source. These annotations serve to
+  - describe the access to the data source including transfer protocol, location and authentication conditions to your own connector (the `dataAddress`)
+  - describe the content of the asset to other connectors for querying and displaying (the `properties`)
+  - describe the state of the asset to your own connector for deciding about publishing (the `privateProperties`)
+  
+  In order to support a flexible structure, the asset definition uses JSON-LD syntax. That is, similar to XML-Namespace, a way to abbreviate complex, namespaced properties using contexts. 
+  
+  > Again, as a rule of thumb: Only the `@id` property and the information under `properties` may be visible to other connectors in the dataspace. Everthing under `privateProperties` and `dataAddress` will never leave your connector over any other API than the Management API.
+  
+  Furthermore, regarding the uniqueness of asset ids:
+  
+  > Assets need only be unique for the connector that they are registered in. However, we recommend using (globally) unique id's in the not unusual case that you want to publish to several dataspaces (and hence: connectors) in parallel. 
+  
+  > There is a tool by T-Systems called the **Data Governance Kit** which helps to to define assets, policies and contract definitions independent of the connectors and dataspaces and keep track of their visibilities and versions.
+  
+  
+  
+  
+}

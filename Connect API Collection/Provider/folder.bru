@@ -1,3 +1,26 @@
 meta {
-  name: Provider Communication
+  name: Provider
+}
+
+docs {
+  # Provider-Side Steps to Publish, Manipulate and Monitor Data Offers
+  
+  First we have to create or modify *Data Assets*. This is usually done by
+  administrators who know the data sources and their business/use cases very well.
+  
+  Independently, we have to create or modify *Policy Definitions* which is the task of
+  governance officers who are able to translate business rules into constraints on the dataspace trust infrastructure.
+  
+  Finally, we have to create or modify *Contract Definitions* which bring together sets of assets (based on their annotations) with the policy definitions. 
+  
+  Only based on contract definitions, another party may see your individual *Data Offers* (which are in fact a combination of a data asset with an assigned policy). Consequences of this flexible design:
+  
+  > One asset may result in many data offers. 
+  
+  > Depending on the policy constraints, different business partners can get different offers. 
+  
+  > Offers may change over time.
+  
+  > Any data transfer first needs an *Contract Agreement* on the concrete conditions (policy, constraints) under which an asset will be accessed.
+  
 }

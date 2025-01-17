@@ -1,0 +1,34 @@
+meta {
+  name: List_Contract_Definitions
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortOrder": "DESC",
+    "filterExpression": [
+      {
+        "operandLeft": "id",
+        "operator": "like",
+        "operandRight": "{{CONTRACT_DEFINITION_ID}}%"
+      }
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+meta {
+  name: Query_Catalog
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/catalog/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {},
+      "protocol": "dataspace-protocol-http",
+      "counterPartyAddress": "{{PROVIDER_PROTOCOL_URL}}",
+      "querySpec": {
+          "offset": 0,
+          "limit": 500,
+          "filterExpression": [
+            {
+             "operandLeft": "{{EDC_NAMESPACE}}id",
+             "operator":"like",
+             "operandRight":"{{ASSET_ID}}%"
+            }
+          ]
+      }
+  }
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) {
+      var jsonData = res.getBody();
+      var counterPartyId = jsonData["edc:participantId"];
+      bru.setEnvVar("PROVIDER_ID",counterPartyId);
+      var dataset = jsonData["dcat:dataset"];
+      if(Array.isArray(dataset)) {
+        dataset = dataset[dataset.length-1];
+      }
+      if(dataset != undefined) {
+        var assetId = dataset["@id"];
+        bru.setEnvVar("TARGET_ID", assetId);
+        var policy = dataset["odrl:hasPolicy"];
+        if(Array.isArray(policy)) {
+          policy = policy[0];
+        }
+        var policyId = policy["@id"];
+        bru.setEnvVar("OFFER_ID", policyId);
+        bru.setEnvVar("PERMISSION", JSON.stringify(policy));
+      }
+  }  
+  
+  
+}
+
+docs {
+  # Query Data Offer Catalog From a Business Partner
+  
+  Although this `POST` call hits the *Catalog Management Endpoint*, it will immediately be delegated by your connector (using its trust anchor/proof) to a remote connector of a business partner. Hence you need to include his `counterPartyAddress` as the URL to its *Dataspace Protocol Endpoint*. 
+  
+  You can get hold of this URL by several mechanisms which are varying from dataspace to dataspace (and use case to use case). For example, there mighgt be a central *Registration Service* like in the Gaia-X MVD. Or there might be *Discovery Services* like in Catena-X. For the time being, we assume that such a service has already been called and we have obtained this URL beforehand.
+  
+  We expect the business partner to offer an increasing set of data assets to us (under a variety of conditions). We call this the current **Data Set**. Hence it is useful to know that this query usually is limited in size (default 50 data offers) and can hence carry a complete **Query Specification** including a `limit` and an `offset` and a set of (conjunctive) `filterExpression` operations.
+  
+  The resuling catalog is in a standard JSON-LD format called _DCAT_ and will not only contain the data set itself, but also contextual information on the provider. Hence this catalogue may be used/persisted/handed out to an application as a reference to restore any information needed to contact the provider at a later point in time.
+  
+  The individual offers inside the `dcat:dataset` may have one or several policies (odrl:hasPolicy) under which they are offered. Because these policies are being referred to by the Provider in the `contractPolicyId` of his contract definitions, there maybe several such contract definitions to which this consumer is legitimated to see. 
+  
+  In each case, the consumer has to choose one that is appropriate for him. If you are programming an application, usually you would turn that choice to the user who could decide upon one that is fitting. In our case, we have put a little script which does that choice for us (see the Script tab).
+  
+  For further processing, we have to not only remember the DSP url, but also the official business partner's id in the namespace (`edc:participantId`), the asset id of the offer in the dataset we have chosen, the actual offer/policy id (which uniquely refers to the policy conditions of the asset) AND the policy text.
+  
+  >Remembering (and copying) the policy text is a kind of confirmative action that the consumer has to willingly perform in order to demonstrate his consent with the policies conditions (which may be of verbal nature in case that the constraints cannot be completely ensured/evaluated).
+  
+  Next we could establish a [**Contract Agreement**](Initiate_Contract_Negotiation.bru) about the just made offer.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}

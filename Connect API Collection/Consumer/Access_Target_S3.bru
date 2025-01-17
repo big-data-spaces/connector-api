@@ -1,0 +1,26 @@
+meta {
+  name: Access_Target_S3
+  type: http
+  seq: 8
+}
+
+get {
+  url: https://s3-{{AWS-TARGET-REGION}}.amazonaws.com/{{AWS-TARGET-BUCKET-NAME}}/{{AWS-TARGET-PATH}}
+  body: none
+  auth: awsv4
+}
+
+auth:awsv4 {
+  accessKeyId: {{AWS-TARGET-ACCESS-KEY}}
+  secretAccessKey: {{AWS-TARGET-SECRET-KEY}}
+  sessionToken: 
+  service: s3
+  region: {{AWS-TARGET-REGION}}
+  profileName: 
+}
+
+docs {
+  # Access/Verify Target Sink
+  
+  In order to find out whether transfer was successful, we have to check the actual data sink directly.
+}

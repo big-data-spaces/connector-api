@@ -1,0 +1,45 @@
+meta {
+  name: Monitor_Transfer_Processes
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/transferprocesses/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-Api-Key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortField": "createdAt",
+    "sortOrder": "DESC",
+    "filterExpression": [
+      {
+        "operandLeft": "dataRequest.assetId",
+        "operator": "like",
+        "operandRight": "{{ASSET_ID}}%"
+      }
+    ]
+  }
+}
+
+docs {
+  # Monitor Transfer Processes
+  
+  You can monitor the distributed transfer processes of particular assets of this connector using this `POST` call. 
+  
+  > The Consumer will have a similar transfer process with a different id, but sharing the same `edc:correlationId`.
+  
+  In this version of EDC, the state progression however was done by so-called status checkers which were not implemented for all protocols, such as S3. This could mean that the transfer processes will stay in state `STARTED` forever, although the actual transfer was already done.  
+}

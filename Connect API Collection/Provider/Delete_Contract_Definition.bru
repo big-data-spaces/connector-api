@@ -1,0 +1,36 @@
+meta {
+  name: Delete_Contract_Definition
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "id": "{{POLICY_ID}}",
+      "policy": {
+          "prohibitions": [],
+          "obligations": [],
+          "permissions": [
+              {
+                  "edctype": "dataspaceconnector:permission",
+                  "action": {
+                      "type": "USE"
+                  },
+                  "constraints": []
+              }
+          ]
+      }
+  }
+}

@@ -1,0 +1,45 @@
+vars {
+  CONSUMER_URL: https://connect-test-3.erjufp1-wp31-sandbox.lila.dih.telekom.com
+  CONSUMER_MANAGEMENT_URL: {{CONSUMER_URL}}/api/management
+  CONSUMER_PROTOCOL_URL: {{CONSUMER_URL}}/api/dsp
+  PROVIDER_URL: https://connect-test.erjufp1-wp31-sandbox.lila.dih.telekom.com
+  PROVIDER_PROTOCOL_URL: {{PROVIDER_URL}}/api/dsp
+  PROVIDER_MANAGEMENT_URL: {{PROVIDER_URL}}/api/management
+  ASSET_ID: demo-asset
+  POLICY_ID: demo-policy
+  CONTRACT_DEFINITION_ID: demo-contract-def
+  EDC_NAMESPACE: https://w3id.org/edc/v0.0.1/ns/
+  NEGOTIATION_ID: 
+  AGREEMENT_ID: 
+  TRANSFER_PROCESS_ID: 
+  OFFER_ID: 
+  TARGET_ID: 
+  PROVIDER_ID: 
+  PERMISSION: 
+  AWS-SOURCE-REGION: eu-central-1
+  AWS-SOURCE-PATH: lorem-ipsum.pdf
+  AWS-SOURCE-BUCKET-NAME: tsy-edc-tests
+  AWS-TARGET-REGION: eu-central-1
+  AWS-TARGET-PATH: lorem-ipsum2.pdf
+  AWS-TARGET-BUCKET-NAME: tsy-edc-tests
+  SOURCE_PATH: http://loripsum.net/api
+  AZURE-SOURCE-ACCOUNT: catenaxtsidevstorage
+  AZURE-SOURCE-KEY: azure-tsy-shared
+  AZURE-SOURCE-CONTAINER: connectortests
+  AZURE-BLOB-NAME: ecopass.svg
+  DID_URL: didserver.erjufp1-wp31-sandbox.lila.dih.telekom.com
+  AZURE-TARGET-ACCOUNT: catenaxtsidevstorage
+  AZURE-TARGET-CONTAINER: connectortests
+  AZURE-TARGET-KEY: azure-tsy-dev
+}
+vars:secret [
+  AWS-SOURCE-ACCESS-KEY,
+  AWS-SOURCE-SECRET-KEY,
+  AWS-TARGET-ACCESS-KEY,
+  AWS-TARGET-SECRET-KEY,
+  SOURCE_AUTHKEY,
+  TARGET_AUTHKEY,
+  CONSUMER_API_KEY,
+  PROVIDER_API_KEY,
+  AZURE-TARGET-SAS
+]

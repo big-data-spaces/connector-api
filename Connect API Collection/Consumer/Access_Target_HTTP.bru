@@ -1,0 +1,29 @@
+meta {
+  name: Access_Target_HTTP
+  type: http
+  seq: 11
+}
+
+get {
+  url: https://webhook.site/token/{{WEBHOOK_ID}}/request/latest/raw
+  body: none
+  auth: none
+}
+
+script:post-response {
+  if(res.getStatus()>=200 && res.getStatus()<300) {
+    bru.setEnvVar("WEBHOOK_ID",res.getBody().uuid);  
+  }
+  
+}
+
+docs {
+  # Access Verify Target Sink
+  
+  We read out the latest call to the webhook using this `GET` call.
+  
+  As long as its saying `404 Not Found`, the transfer has not been processed.
+  
+  If it returns with a `200 OK` you should see the content of the source file in the response body.
+  
+}

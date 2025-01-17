@@ -1,0 +1,66 @@
+meta {
+  name: Modify_Contract_Definition
+  type: http
+  seq: 18
+}
+
+put {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {},
+    "@id": "{{CONTRACT_DEFINITION_ID}}",
+    "@type": "ContractDefinition",
+    "accessPolicyId": "{{POLICY_ID}}",
+    "contractPolicyId": "{{POLICY_ID}}_contract",
+    "assetsSelector": [
+      {
+        "@type": "CriterionDto",
+        "operandLeft": "{{EDC_NAMESPACE}}id",
+        "operator": "like",
+        "operandRight": "{{ASSET_ID}}%"
+      },
+      {
+        "@type": "CriterionDto",
+        "operandLeft": "urn:dih-cloud:com:state",
+        "operator": "=",
+        "operandRight": "active"
+      }
+    ]
+  }
+}
+
+docs {
+  # Create or Modify a Contract Definition
+  
+  **Contract Definitions** are the missing link between **Data Assets** and **Policy Definitions**.
+  
+  A Contract Definition is a JSON-LD structure which reference two different policies by their respective ids:
+  - the `accessPolicyId` is evaluated when a business partner/remote connector makes a catalog request in order to derive **Data Offers** (or in synonymous connector speak, a so-called **Data Set**). The policy with this id will only be evaluated, but *it will not be published*.
+  - the `contractPolicyId` in contrast is referring to the policy that will be copied/published in the data set. This is the policy that the business partner has to agree on and that its connector needs to confirm by *copying it over* into any negotiation attempt. This policy is logged in any auditing facility, legally binding and needs to be evaluated successfully before any agreement is made.
+  
+  As rule of thumb:
+  
+  >Put only those constraints into the accessPolicyId which the business partner can satisfy unconditionally, that is, without knowing your trust conditions in advance. At the same time, you should put those conditions here which should not be visible to the business partner at all, such as whitelists or blacklists based on your own ratings of the business partners. 
+  
+  >Put only those constraints into the contractPolicyId which the business partner can understand and implement. Otherwise he may refrain to agree and hesitate to accept your data offers. Do not put any custom namespaces, operators or legally ambiguous, dubious texts here which have not yet already been agreed upon in a separate frame contract. You may reference those contracts however in a way that the business partner can unambiguously link to such existing documents.
+  
+  Instead of simply listing the associated assets, the Contract Management Endpoint´s `POST` method allows for the ´assetsSelector` object to be a flexible list of filter conditions which may be based on the actual asset id but may use any additional annotations in order to make the contract dynamic, e.g., when new assets are created or when their state changes. 
+  
+  Although contract definitions may be easily modified (simple switch to `PUT`) or deleted (see the call below), we expect the dynamics of assets being much higher than the dynamics of policies and contracts. Therefore it is easier to steer the offerings through the modifications of assets than the modification of individual contracts.
+  
+  You may now switch to the [Consumer](Consumer) side in order to make a first catalogue request and see the result of the current setup.
+  
+  
+  
+}

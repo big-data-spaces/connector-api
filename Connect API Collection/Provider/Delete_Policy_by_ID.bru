@@ -1,0 +1,46 @@
+meta {
+  name: Delete_Policy_by_ID
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/{{POLICY_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "id": "{{POLICY_ID}}",
+      "policy": {
+          "prohibitions": [],
+          "obligations": [],
+          "permissions": [
+              {
+                  "edctype": "dataspaceconnector:permission",
+                  "action": {
+                      "type": "USE"
+                  },
+                  "constraints": []
+              }
+          ]
+      }
+  }
+}
+
+docs {
+  # Deleting a Policy Definition
+  
+  Using a `DELETE` method on this endpoint will erase the given policy from the connector. This may have some implications, however, so you want to handle this method with care.
+  
+  > If the policy is still referenced in a contract definition, the contract ceases to be functional, i.e., there will be no associated data offers being visible to your business partners anymore (if it is referenced via the `accessPolicyId`) or data offers which are visible cannot be negotiated anymore (if it is referenced in the `contractPolicyId`).
+  
+  > If the policy has already been part of a contract negotiation, then it will be `cloned` into that agreement on both connectors. Deleting a policy will not affect the functionality of these `frozen` clones.
+}

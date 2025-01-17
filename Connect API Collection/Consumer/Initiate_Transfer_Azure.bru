@@ -1,0 +1,65 @@
+meta {
+  name: Initiate_Transfer_Azure
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/transferprocesses
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "odrl": "http://www.w3.org/ns/odrl/2/"
+      },
+      "connectorId":"{{PROVIDER_ID}}",
+      "providerId": "{{PROVIDER_ID}}",
+      "assetId": "{{ASSET_ID}}",
+      "connectorAddress": "{{PROVIDER_PROTOCOL_URL}}",
+      "contractId": "{{AGREEMENT_ID}}",
+      "dataDestination": {
+        "account":"{{AZURE-TARGET-ACCOUNT}}",
+        "keyName":"{{AZURE-TARGET-KEY}}",
+        "container": "{{AZURE-TARGET-CONTAINER}}",
+        "type": "AzureStorage"
+      },
+      "managedResources": false,
+      "protocol": "dataspace-protocol-http",
+      "transferType": {
+          "contentType": "application/octet-stream",
+          "isFinite": true
+      }
+  }
+}
+
+script:pre-request {
+  bru.setVar("TRANSFER_ID", Math.random());
+}
+
+tests {
+  test("Body matches string", function () {
+      var jsonData = res.getBody();
+      bru.setVar("TRANSFER_PROCESS_ID", jsonData["@id"]);
+  });
+}
+
+docs {
+  # Initiate a Transfer Process to Azure Blob Storage
+  
+  We could now reuse the still valid contract agreement to initiate a third transfer process to the same data offer/asset, but this time using the Azure Blob Storage protocol as a target.
+  
+  Similar to S3, Azure Blob requires an access key to authenticate which is securely communicated and temporarily persisted in the Provider vault. In this case however, the connector expects this key to be stored in the consumer vault and we should only provide the name of this secret in the dataDestination.
+  
+  
+  
+  
+}

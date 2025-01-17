@@ -1,0 +1,48 @@
+meta {
+  name: Monitor_Contract_Negotiations
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractnegotiations/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-Api-Key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortField": "stateTimestamp",
+    "sortOrder": "DESC",
+    "filterExpression": [
+      {
+        "operandLeft": "counterPartyAddress",
+        "operator": "=",
+        "operandRight": "{{CONSUMER_PROTOCOL_URL}}"
+      },
+      {
+        "operandLeft": "contractAgreement.assetId",
+        "operator": "like",
+          "operandRight": "{{ASSET_ID}}%"
+      } 
+    ]
+  }
+}
+
+docs {
+  # Monitor Contract Negotations 
+  
+  Using this `POST` call, the provider can monitor ongoing and finalized contract agreements with particular business partners.
+  
+  > The negotiation ids of the provider and consumer connectors are unique, but the agreement ids (and the agreement contents) are identical! 
+}

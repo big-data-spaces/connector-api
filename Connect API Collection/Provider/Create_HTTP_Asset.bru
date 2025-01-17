@@ -1,0 +1,52 @@
+meta {
+  name: Create_HTTP_Asset
+  type: http
+  seq: 23
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+      "@context": {
+          "edc": "https://w3id.org/edc/v0.0.1/ns/",
+          "custom": "urn:dih-cloud:com:"
+      },
+      "@type": "Asset",
+      "@id": "{{ASSET_ID}}_http",
+      "properties": {
+          "description": "Http Demo Asset",
+          "edc:originator": "{{PROVIDER_PROTOCOL_URL}}",
+          "content-type": "application/html"
+      },
+      "privateProperties": {
+          "assetOwner": "Lorem Ipsum AG",
+          "custom:state": "active"
+      },
+      "dataAddress": {
+          "@type": "DataAddress",
+          "type": "HttpData",
+          "baseUrl": "{{SOURCE_PATH}}",
+          "authKey": "Authorization",
+          "authCode": "Basic {{SOURCE_AUTHKEY}}",
+          "name": "lorem-ipsum.html",
+          "method": "GET"
+      }
+  }
+}
+
+tests {
+  test("Status code is 201", function () {
+      expect(res.getStatus()).to.equal(201);
+  });
+}

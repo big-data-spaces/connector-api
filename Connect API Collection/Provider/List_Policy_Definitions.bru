@@ -1,0 +1,42 @@
+meta {
+  name: List_Policy_Definitions
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/policydefinitions/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortOrder": "DESC",
+    "filterExpression": [
+      {
+        "operandLeft": "id",
+        "operator": "like",
+        "operandRight": "{{POLICY_ID}}%"
+      }
+    ]
+  }
+}
+
+docs {
+  # List Prepared Policy Definitions
+  
+  Similar to the asset list call, we can construct a query on the policy management endpoint to list the available policies in the JSON response.
+  
+  
+}

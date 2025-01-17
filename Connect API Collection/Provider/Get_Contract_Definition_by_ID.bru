@@ -1,0 +1,17 @@
+meta {
+  name: Get_Contract_Definition_by_ID
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v2/contractdefinitions/{{CONTRACT_DEFINITION_ID}}
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}

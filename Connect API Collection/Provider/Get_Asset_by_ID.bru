@@ -1,0 +1,23 @@
+meta {
+  name: Get_Asset_by_ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Get a Dedicated Asset Definition
+  
+  If you know the asset´s unique id, you can directly access its definition in the JSON-LD response of this simple `GET` method.
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Delete_Asset_Try
+  type: http
+  seq: 15
+}
+
+delete {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets/{{ASSET_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Try to Delete an Already Negotiated Asset
+  
+  As beforementioned, deleting an already negotiated asset will not be allowed due to consistency and auditing purposes.
+  
+  We will be presented a `409 Conflict` with a detailed error response instead.
+  
+  Instead, we will show you how to nevertheless hide the asset from further negotation by removing it from the catalog. This can be reached by modifying the asset properties which are mentioned in the contracts asset selector or by changing contract definition itself.
+  
+  
+}

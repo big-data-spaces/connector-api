@@ -1,0 +1,48 @@
+meta {
+  name: List_Assets
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{PROVIDER_MANAGEMENT_URL}}/v3/assets/request
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{PROVIDER_API_KEY}}
+  placement: header
+}
+
+body:json {
+  {
+    "@context": {
+      "edc": "https://w3id.org/edc/v0.0.1/ns/"
+    },
+    "@type": "QuerySpec",
+    "sortOrder": "DESC",
+    "sortField": "fieldName",
+    "offset": 0,
+    "limit": 10,
+    "filterExpression": [
+          {
+             "operandLeft": "{{EDC_NAMESPACE}}id",
+             "operator":"like",
+             "operandRight":"{{ASSET_ID}}%"
+          }
+    ]
+  }
+}
+
+docs {
+  # List Prepared Data Assets
+  
+  This `POST` call lists possibly all (outgoing) data assets which have been registered/sourced in your connector in a successful (`200 OK`) JSON arrayresponse.
+  
+  Because we expect the number of assets growing rapidly over time, it will return only a limited number of those. The selection can be determined by enclosing a so-called **Query Specification** object into the body. Its `limit` and `offset` properties determine the page or window of assets to return which can be furthermore sorted (`sortField` and `sortOrder`). 
+  
+  Finally you can restrict the returned assets by their annotations, like their id, their state, their content, ... The `filterExpression` is a list of such conditions which need to be fulfilled by the shown assets altogether. You may use the `=`, `<`, `>` and `like` operators for that purpose.
+  
+}

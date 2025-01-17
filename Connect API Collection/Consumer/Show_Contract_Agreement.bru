@@ -1,0 +1,28 @@
+meta {
+  name: Show_Contract_Agreement
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{CONSUMER_MANAGEMENT_URL}}/v2/contractagreements/{{AGREEMENT_ID}}
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: x-api-key
+  value: {{CONSUMER_API_KEY}}
+  placement: header
+}
+
+docs {
+  # Show Contract Agreement
+  
+  Besides of a changed policy id, the structure of this agreement will be identical to the document on provider side. 
+  
+  > Hence, agreements cannot simply be deleted on one side. 
+  
+  Instead, the negotiation process itself needs to be canceled/termterminated in which case another DSP protocol will be activated to make sure that resources will be freed. Watch the status of the negotation after the next cancelling call.
+  
+}
