@@ -18,7 +18,7 @@
             <mxPoint x="270" y="295" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="P-xZBWmslQts0KI-_4hQ-6" value="Management&amp;nbsp;&lt;div&gt;API&lt;/div&gt;&lt;div&gt;internal network&lt;/div&gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=oval;endFill=0;sketch=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;endSize=10;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" target="P-xZBWmslQts0KI-_4hQ-7" parent="1" source="P-xZBWmslQts0KI-_4hQ-1">
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-6" value="Management&amp;nbsp;&lt;div&gt;API&lt;/div&gt;&lt;div&gt;Internal network&lt;/div&gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=oval;endFill=0;sketch=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;endSize=10;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" target="P-xZBWmslQts0KI-_4hQ-7" parent="1" source="P-xZBWmslQts0KI-_4hQ-1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="230" y="295" as="sourcePoint" />
           </mxGeometry>
@@ -57,7 +57,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="P-xZBWmslQts0KI-_4hQ-13" value="Sink Protocol (S3, Azure Blob, ...)&lt;div&gt;Public&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="P-xZBWmslQts0KI-_4hQ-12">
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-13" value="Sink Protocol (S3, Azure Blob, Http)&lt;div&gt;Public N&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;etwork&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;write-only token&lt;/span&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="P-xZBWmslQts0KI-_4hQ-12">
           <mxGeometry x="-0.1093" y="2" relative="1" as="geometry">
             <mxPoint x="-27" as="offset" />
           </mxGeometry>
@@ -68,9 +68,17 @@
         <mxCell id="P-xZBWmslQts0KI-_4hQ-15" value="Data Source" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
           <mxGeometry x="645" y="410" width="60" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="P-xZBWmslQts0KI-_4hQ-16" value="Source Protocol (S3, Azure Blob, Http)&lt;div&gt;internal network&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.333;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=open;startFill=0;endArrow=none;endFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-3" target="P-xZBWmslQts0KI-_4hQ-15">
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-16" value="Source Protocol (S3, Azure Blob, Http)&lt;div&gt;Internal N&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;etwork&lt;/span&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.333;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=open;startFill=0;endArrow=none;endFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-3" target="P-xZBWmslQts0KI-_4hQ-15">
           <mxGeometry x="0.5217" y="30" relative="1" as="geometry">
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-18" value="Source Protocol (S3, Azure Blob, Http)&lt;div&gt;Internal Network&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=52.5;entryPerimeter=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-1" target="P-xZBWmslQts0KI-_4hQ-14">
+          <mxGeometry x="0.2061" y="3" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="95" y="463" />
+            </Array>
+            <mxPoint x="1" y="1" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
