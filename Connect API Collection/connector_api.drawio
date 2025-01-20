@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="26.0.6">
   <diagram name="Seite-1" id="MQDj1qhvXethNwqq28II">
-    <mxGraphModel dx="1434" dy="915" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -59,7 +59,7 @@
         </mxCell>
         <mxCell id="P-xZBWmslQts0KI-_4hQ-13" value="Sink Protocol (S3, Azure Blob, Http)&lt;div&gt;Public N&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;etwork&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;write-only token&lt;/span&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="P-xZBWmslQts0KI-_4hQ-12">
           <mxGeometry x="-0.1093" y="2" relative="1" as="geometry">
-            <mxPoint x="-27" as="offset" />
+            <mxPoint x="-21" y="22" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="P-xZBWmslQts0KI-_4hQ-14" value="Data Sink&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
@@ -68,7 +68,7 @@
         <mxCell id="P-xZBWmslQts0KI-_4hQ-15" value="Data Source" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
           <mxGeometry x="645" y="410" width="60" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="P-xZBWmslQts0KI-_4hQ-16" value="Source Protocol (S3, Azure Blob, Http)&lt;div&gt;Internal N&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;etwork&lt;/span&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.333;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=open;startFill=0;endArrow=none;endFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-3" target="P-xZBWmslQts0KI-_4hQ-15">
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-16" value="Source Protocol (S3, Azure Blob, Http)&lt;div&gt;Internal N&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;etwork&lt;/span&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.333;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-3" target="P-xZBWmslQts0KI-_4hQ-15">
           <mxGeometry x="0.5217" y="30" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -79,6 +79,50 @@
               <mxPoint x="95" y="463" />
             </Array>
             <mxPoint x="1" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-19" value="Trust&lt;div&gt;Service&lt;/div&gt;&lt;div&gt;(Registry)&lt;/div&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="90" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-22" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=halfCircle;endFill=0;endSize=6;strokeWidth=1;sketch=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="115" as="sourcePoint" />
+            <mxPoint x="330" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-23" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=oval;endFill=0;sketch=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;endSize=10;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" target="P-xZBWmslQts0KI-_4hQ-24" parent="1" source="P-xZBWmslQts0KI-_4hQ-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="115" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="295" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-24" value="" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" vertex="1" parent="1">
+          <mxGeometry x="325" y="110" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-25" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=halfCircle;endFill=0;endSize=6;strokeWidth=1;sketch=0;exitX=0.996;exitY=0.369;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="514.0000000000001" y="114.22999999999993" as="sourcePoint" />
+            <mxPoint x="580.4" y="115.78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-26" value="Trust/DID Procotol&lt;div&gt;Dataspace Network&lt;/div&gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=oval;endFill=0;sketch=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;endSize=10;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry x="0.5102" y="-15" relative="1" as="geometry">
+            <mxPoint x="670" y="270" as="sourcePoint" />
+            <mxPoint x="580" y="115" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="670" y="115" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-28" value="Provisioning&lt;div&gt;Write-Only&lt;/div&gt;&lt;div&gt;Tokens&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=15;entryPerimeter=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-2" target="P-xZBWmslQts0KI-_4hQ-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P-xZBWmslQts0KI-_4hQ-29" value="Transfer Checker&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.283;entryY=0.023;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="P-xZBWmslQts0KI-_4hQ-2" target="P-xZBWmslQts0KI-_4hQ-14">
+          <mxGeometry x="-0.7886" y="40" relative="1" as="geometry">
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
